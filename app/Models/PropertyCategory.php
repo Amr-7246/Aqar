@@ -1,0 +1,16 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class PropertyCategory extends Model
+{
+    protected $fillable = [
+
+    ];
+    // relations 
+    public function proerty() {
+      return $this->hasMany('properties');
+    }
+}
