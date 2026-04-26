@@ -1,79 +1,66 @@
-import { IconicBtn, ThreeDBtn } from '@/components/Buttons'
-// import { appRoutes, homeAssets } from '@/pub/assets'
-import { useTranslations } from 'next-intl'
-import Image from 'next/image'
-import Link from 'next/link'
-import React from 'react'
-import { FiChevronRight, FiUsers, FiMapPin } from 'react-icons/fi'
+import { Input } from "@/components/ui/input"
+import { homeText } from "@/index"
+import { PersonStanding, HandshakeIcon, Building2Icon, Search } from "lucide-react"
+import React from "react"
+import HeroAnimatedLayout from "./HeroAnimatedLayout"
+import { HeroProps } from "../types"
 
-const Hero = () => {
-  const homeText = useTranslations('Home')
+export default function Hero({ propertiesCount, clientsCount, dealCount }: HeroProps) {
+  const statistics = [
+    {
+      key: homeText.statistics.clients,
+      value: clientsCount,
+      icon: <PersonStanding className="w-5 h-5" />,
+    },
+    {
+      key: homeText.statistics.properties,
+      value: propertiesCount,
+      icon: <Building2Icon className="w-5 h-5" />,
+    },
+    {
+      key: homeText.statistics.deals,
+      value: dealCount,
+      icon: <HandshakeIcon className="w-5 h-5" />,
+    },
+  ]
 
   return (
-    <section className="w-full min-h-[85vh] ">
-      {/*//~ upper Part */}
-        <div className="flex flex-col lg:flex-row items-start lg:gap-0 gap-8">
+    <section className="relative min-h-screen flex flex-col items-center justify-center px-6 overflow-hidden">
+      <HeroAnimatedLayout />
 
-          {/*//& App Global Intro */}
-            <div className="flex-1 p-8 lg:p-12 mt-12 ">
-              <div className="flex items-center gap-1 mb-4">
-                <span className="text-second-text">
-                  <FiMapPin className="w-5 h-5" />
-                </span>
-                <span className="text-sm font-semibold text-third-text ">{homeText('explorMap')}</span>
-              </div>
+      <div className="z-10 relative w-full max-w-6xl mx-auto flex flex-col items-center text-center gap-12">
 
-              <h1 className="">
-                {homeText('welcome')}
-              </h1>
-
-              <p className="">
-                {homeText('pref')}
-              </p>
-              {/* //TODO:use smoothScrolling() */}
-                <div className='w-fit'>
-                  <Link href={'#specifications'}>
-                    <IconicBtn
-                      text={homeText('explorSpecificationsBtn')}
-                      icon={undefined}
-                      iconStyle={'bg-second text-main-text group-hover:bg-main group-hover:text-second-text duration-500  '}
-                      buttonStyle={'bg-main text-second-text mt-8 group-hover:bg-second group-hover:text-main-text duration-500 '}/>
-
-                  </Link>
-                </div>
-            </div>
-
-          {/*//& Hero image */}
-            <div className="flex-1 flex items-center justify-center mx-auto pt-10">
-              <div className=" w-full overflow-hidden ">
-                <Image src={homeAssets.hero} alt={'hero'} className="w-full h-auto object-cover" />
-              </div>
-            </div>
-
-        </div>
-      {/*//~ lower Part */}
-        <div className="mt-16 flex flex-col gap-6 ">
-          <Link href={appRoutes.global.book} className="inline-block">
-            <ThreeDBtn
-            //TODO: fix that bug latter
-              text={homeText('rentArtisan')}
-              buttonColors={'bg-third text-second-text shadow-md w-full'}
-              spanColors={'bg-second'}
+        {/* Search + Intro Hook */}
+        <div className="flex flex-col items-center gap-8 w-full max-w-3xl">
+          <h1 className="text-5xl md:text-7xl font-bold tracking-tight bg-gradient-to-r from-premium via-white to-secondary bg-clip-text text-transparent pb-2">
+            {homeText["hook-intro"]}
+          </h1>
+          <div className="w-full max-w-md relative group">
+            <Input
+              icon= {<Search/>}
+              className="bg-white/10 border-white/20 backdrop-blur-md text-white h-14 px-6 rounded-full focus:ring-premium"
+              placeholder="Search properties..."
             />
-          </Link>
-
-          <Link href={appRoutes.global.projectsInstance} className="inline-block">
-            <ThreeDBtn
-              text={homeText('explorPricing')}
-              buttonColors={'bg-third text-second-text w-full shadow-md'}
-              spanColors={'bg-second'}
-            />
-          </Link>
-
+          </div>
         </div>
 
+        {/* Statistics */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full">
+          {statistics.map((s, index) => (
+            <div
+              key={index}
+              className="flex flex-col items-center p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm transition-transform "
+            >
+              <p className="text-4xl font-bold text-white mb-2">{s.value}</p>
+              <div className="flex items-center gap-2 text-white/60">
+                <p className="text-sm font-medium uppercase tracking-widest">{s.key}</p>
+                <span className="text-premium">{s.icon}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+
+      </div>
     </section>
   )
 }
-
-export default Hero

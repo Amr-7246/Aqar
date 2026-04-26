@@ -68,9 +68,9 @@
     --card-foreground: oklch(0.145 0 0);
     --popover: oklch(1 0 0);
     --popover-foreground: oklch(0.145 0 0);
-    --primary: oklch(0.205 0 0);
+    --primary: oklch(54.985% 0.20693 27.478);
     --primary-foreground: oklch(0.985 0 0);
-    --secondary: oklch(0.97 0 0);
+    --secondary: oklch(97.015% 0.00011 271.152);
     --secondary-foreground: oklch(0.205 0 0);
     --muted: oklch(0.97 0 0);
     --muted-foreground: oklch(0.556 0 0);
@@ -133,11 +133,47 @@
 }
 
 @layer base {
+    /* Customize the scrollbar and custom cursor */
+        html {
+            scrollbar-color: var(--muted-foreground) var(--background);
+            scrollbar-width: thin;
+            cursor: url(/images/custom-cursor/cursor-default.png), auto;
+        }
+        a, button, .cursor-pointer, select {
+          cursor: url(/images/custom-cursor/cursor-pointer.png), pointer !important;
+        }
+        /* p, h1, h2, h3, h4, h5, h6, input, textarea {
+          cursor: url(/images/custom-cursor/cursor-text.png), text !important;
+        } */
+        /* For Webkit Browsers (Chrome, Safari, Edge) to control thickness/radius */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--background);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--muted-foreground);
+            border-radius: 10px;
+            border: 2px solid var(--background);
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary);
+        }
+
     * {
         @apply border-border;
     }
 
+    ::selection{
+        background-color: var(--primary);
+        color: var(--primary-foreground);
+    }
     body {
+        cursor: url(/images/custom-cursor/cursor-default.png), auto;
         @apply bg-background text-foreground;
     }
 }
