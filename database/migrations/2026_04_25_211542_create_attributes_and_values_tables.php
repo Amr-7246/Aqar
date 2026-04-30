@@ -15,11 +15,11 @@ return new class extends Migration
           $table->id();
           $table->string('name');
           $table->string('type')->default('string');
-          $table->timestamps();
+          $table->timestamps(); 
       });
 
       // 2. The Pivot Table 
-      Schema::create('attribute_property', function (Blueprint $table) {
+      Schema::create('attribute_properties', function (Blueprint $table) {
           $table->id();
           $table->foreignId('property_id')->constrained()->onDelete('cascade');
           $table->foreignId('attribute_id')->constrained()->onDelete('cascade');

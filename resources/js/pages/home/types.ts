@@ -1,31 +1,28 @@
-export interface HeroProps {
-  propertiesCount: number,
-  clientsCount: number, 
-  dealCount: number
-}
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { BaseProperty } from "../types";
 
-export interface postData {
-  id: number;
+export interface PropertyList extends BaseProperty {
   brokerId: number;
   brokerName: string;
   brokerImage: string;
-  categoryName: number;
-  locations: string[];
-  title: string;
   description: string;
   area_m2: number;
-  type: 'rent' | 'sell';
-  price: number;
-  images: string[]; // Representing the JSON array
-  videos: string[]; // Representing the JSON array
+  purpose: 'rent' | 'sell';
+  gallery: string[]; 
+  videos: string[]; 
   liks: number;
-  comments: string[];
+  does_user_like: boolean;
   created_at?: string;
   updated_at?: string;
+  links?: any;
 }
 
 export interface HomeProps {
-    propertyPostData: postData[],
+    properties: {
+      data:PropertyList[],
+      links: any,
+      meta:any
+    },
     propertiesCount: number,
     clientsCount: number, 
     dealCount: number

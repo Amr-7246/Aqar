@@ -1,14 +1,10 @@
 <?php
 namespace App\Http\Controllers;
 
-use App\Models\Property;
-use App\Http\Helpers\ClientResolver;
 use App\Http\Controllers\Controller;
 
 class HomeController extends Controller {
   public function show(){
-      $resolver = new ClientResolver();
-
       // $properties = Property::latest()->get() ?? null;
       // $properties = $crud->read(model: Property); //! How can I pass the model to the function
       //TODO: get that from the DB
@@ -198,7 +194,7 @@ class HomeController extends Controller {
           ],
         ];
       
-      return $resolver->resolve(
+      return $this->emit(
         component: 'home/page', 
         data: [
           'propertyPostData' => $propertyPostData,

@@ -21,19 +21,19 @@
 
         {{-- Inline style to set the HTML background color based on our theme in app.css --}}
         <style>
-            html {
-                background-color: oklch(1 0 0);
-            }
+          html {
+              background-color: oklch(1 0 0);
+          }
 
-            html.dark {
-                background-color: oklch(0.145 0 0);
-            }
+          html.dark {
+              background-color: oklch(0.145 0 0);
+          }
         </style>
 
         <title inertia>{{ config('app.name', 'Laravel') }}</title>
 
-        <link rel="icon" href="/favicon.ico" sizes="any">
-        <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+        <link rel="icon" href="/aqarLogo.png" sizes="any">
+        <link rel="icon" href="/aqarLogo.png" type="image/svg+xml">
         <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
         <link rel="preconnect" href="https://fonts.bunny.net">
@@ -42,6 +42,12 @@
         @viteReactRefresh
         @vite(['resources/js/app.tsx', "resources/js/pages/{$page['component']}.tsx"])
         @inertiaHead
+        <!-- Standard PWA Meta Tags -->
+          {{-- <meta name="theme-color" content="#ffffff">
+          <link rel="apple-touch-icon" href="aqarLogo.png">
+          
+          <!-- This is automatically handled by Vite if you use the plugin properly -->
+          @vite(['resources/js/app.tsx']) --}}
     </head>
     <body class="font-sans antialiased">
         @inertia

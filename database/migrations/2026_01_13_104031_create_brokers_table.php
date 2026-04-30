@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('brokers', function (Blueprint $table) {
-            $table->uuid();
+            $table->uuid()->primary();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('license_number')->unique()->nullable();
             $table->decimal('commission_rate', 5, 2)->default(2.50);

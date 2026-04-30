@@ -15,6 +15,7 @@
         "laravel/wayfinder": "^0.1.9",
         "spatie/laravel-medialibrary": "^11.0",
         "spatie/laravel-permission": "^6.0",
+        "spatie/laravel-typescript-transformer": "*",
         "tightenco/ziggy": "^2.0"
     },
     "require-dev": {

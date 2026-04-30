@@ -18,10 +18,11 @@ class AuthenticatedSessionController extends Controller
      */
     public function create(): Response
     {
-        return Inertia::render('Auth/Login', [
-            'canResetPassword' => Route::has('password.request'),
-            'status' => session('status'),
-        ]);
+      return Inertia::render('auth/login', [
+        'canResetPassword' => Route::has('password.request'),
+        'status' => session('status'),
+        'canRegister' => Route::has('register')
+      ]);
     }
 
     /**
@@ -29,11 +30,11 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
-        $request->authenticate();
+      $request->authenticate();
 
-        $request->session()->regenerate();
+      $request->session()->regenerate();
 
-        return redirect()->intended(route('dashboard', absolute: false));
+      return redirect()->intended(route('/'));
     }
 
     /**
@@ -43,9 +44,9 @@ class AuthenticatedSessionController extends Controller
     {
         Auth::guard('web')->logout();
 
-        $request->session()->invalidate();
+        $request->session()->invalidate(); //! Clears all data from the current session and makes the session ID useless.
 
-        $request->session()->regenerateToken();
+        $request->session()->regenerateToken(); //! refreshes the CSRF token. It ensures the next person using that browser can't perform a "Cross-Site Request Forgery" attack using the previous session's token.
 
         return redirect('/');
     }
