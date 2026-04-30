@@ -16,9 +16,9 @@ return new class extends Migration
             $table->foreignId('city_id');
             $table->foreignId('government_id');
             $table->enum('country', ['egypt', 'KSA'])->default('egypt');
-            $table->string('name');
+            $table->string('name')->nullable();
             $table->text('address');
-            $table->point('location');
+            $table->geometry('coordinates', subtype: 'point')->nullable();
             $table->timestamps();
         });
     }

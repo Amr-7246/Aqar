@@ -6,11 +6,20 @@ use Illuminate\Database\Eloquent\Model;
 
 class Location extends Model
 {
-    protected $fillable = [
+    protected $guarded = [];
 
-    ];
-    // relations 
-    public function proerty() {
-      return $this->hasMany('properties');
+    public function properties()
+    {
+        return $this->hasMany(Property::class);
+    }
+
+    public function city()
+    {
+        return $this->belongsTo(City::class);
+    }
+
+    public function government()
+    {
+        return $this->belongsTo(Government::class);
     }
 }

@@ -26,15 +26,15 @@ import {
     TooltipProvider,
     TooltipTrigger,
 } from '@/components/ui/tooltip';
-import { UserMenuContent } from '@/components/user-menu-content';
 import { useInitials } from '@/hooks/use-initials';
 import { cn, isSameUrl, resolveUrl } from '@/lib/utils';
 import { dashboard } from '@/routes';
 import { type BreadcrumbItem, type NavItem, type SharedData } from '@/types';
 import { Link, usePage } from '@inertiajs/react';
-import { BookOpen, Folder, LayoutGrid, Menu, Search } from 'lucide-react';
+import { House, Bell, Landmark, UserRound, LayoutGrid, Menu,Headset, Search } from 'lucide-react';
 import AppLogo from './app-logo';
 import AppLogoIcon from './app-logo-icon';
+import { route } from 'ziggy-js';
 
 const mainNavItems: NavItem[] = [
     {
@@ -46,14 +46,29 @@ const mainNavItems: NavItem[] = [
 
 const rightNavItems: NavItem[] = [
     {
-        title: 'Repository',
-        href: 'https://github.com/laravel/react-starter-kit',
-        icon: Folder,
+        title: 'الاستعلامات',
+        href: '#',
+        icon: Headset,
     },
     {
-        title: 'Documentation',
-        href: 'https://laravel.com/docs/starter-kits#react',
-        icon: BookOpen,
+        title: 'حسابك الشخصى',
+        href: '#',
+        icon: UserRound,
+    },
+    {
+        title: 'الاشعارات',
+        href: '#',
+        icon: Bell,
+    },
+    {
+        title: 'العقارات خاصتك',
+        href: '#',
+        icon: Landmark,
+    },
+    {
+        title: 'الرئيسية',
+        href: '/',
+        icon: House,
     },
 ];
 
@@ -70,7 +85,7 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
     const getInitials = useInitials();
     return (
         <>
-            <div className="border-b border-sidebar-border/80">
+            <div className="fixed border-b border-sidebar-border/80 z-[20] w-full bg-white/5 backdrop-blur-sm">
                 <div className="mx-auto flex h-16 items-center px-4 md:max-w-7xl">
                     {/* Mobile Menu */}
                     <div className="lg:hidden">
@@ -88,11 +103,11 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
                                 side="left"
                                 className="flex h-full w-64 flex-col items-stretch justify-between bg-sidebar"
                             >
-                                <SheetTitle className="sr-only">
+                                <SheetTitle className="absolute w-px h-px p-0 -m-px overflow-hidden whitespace-nowrap border-0">
                                     Navigation Menu
                                 </SheetTitle>
                                 <SheetHeader className="flex justify-start text-left">
-                                    <AppLogoIcon className="h-6 w-6 fill-current text-black dark:text-white" />
+                                    <AppLogoIcon />
                                 </SheetHeader>
                                 <div className="flex h-full flex-1 flex-col space-y-4 p-4">
                                     <div className="flex h-full flex-col justify-between text-sm">
@@ -114,7 +129,7 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
                                             ))}
                                         </div>
 
-                                        <div className="flex flex-col space-y-4">
+                                        <div className="flex flex-col space-y-6">
                                             {rightNavItems.map((item) => (
                                                 <a
                                                     key={item.title}
@@ -207,7 +222,7 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
                                                     rel="noopener noreferrer"
                                                     className="group ml-1 inline-flex h-9 w-9 items-center justify-center rounded-md bg-transparent p-0 text-sm font-medium text-accent-foreground ring-offset-background transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50"
                                                 >
-                                                    <span className="sr-only">
+                                                    <span className="absolute w-px h-px p-0 -m-px overflow-hidden whitespace-nowrap border-0">
                                                         {item.title}
                                                     </span>
                                                     {item.icon && (
@@ -234,19 +249,26 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
                                 >
                                     <Avatar className="size-8 overflow-hidden rounded-full">
                                         <AvatarImage
-                                            src={auth.user.avatar}
-                                            alt={auth.user.name}
+                                            src={auth.user?.avatar ?? '#'}
+                                            alt={auth.user?.name ?? ''}
                                         />
                                         <AvatarFallback className="rounded-lg bg-neutral-200 text-black dark:bg-neutral-700 dark:text-white">
-                                            {getInitials(auth.user.name)}
+                                            {getInitials(auth.user?.name ?? '')}
                                         </AvatarFallback>
                                     </Avatar>
                                 </Button>
                             </DropdownMenuTrigger>
                             <DropdownMenuContent className="w-56" align="end">
-                                <UserMenuContent user={auth.user} />
+                                {/* <UserMenuContent user={auth.user} /> */}
                             </DropdownMenuContent>
                         </DropdownMenu>
+                        {/* //& The log in action btns */}
+                          <div className="flex items-center space-x-2">
+                              <Link href={route('login')} className="text-sm font-medium">Log in</Link>
+                              <Link href={route('register')}>
+                                  <Button size="sm">Get Started</Button>
+                              </Link>
+                          </div>
                     </div>
                 </div>
             </div>

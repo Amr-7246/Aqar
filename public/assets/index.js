@@ -1,5 +1,5 @@
 import textContent from "@/AppContent.json"
-import logo from "./logo.png"
+import logo from "./aqarLogo.png"
 //& homeAssets
   import hero from "./home/globalHero.svg"
 
@@ -33,6 +33,9 @@ const appRoutes = {
 }
 
 export {logo, appRoutes, textContent}
+export const globalAssets = {
+  logo,
+}
 export const homeAssets = {
   logo,
   hero,

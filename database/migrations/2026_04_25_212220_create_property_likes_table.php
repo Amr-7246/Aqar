@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('property_id')->constrained()->onDelete('cascade');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $type->enum('type', ['like', 'heart', 'boost', 'angry', 'cool'])->default('boost');
+            $table->enum('type', ['like', 'heart', 'boost', 'angry', 'cool'])->default('boost');
             $table->timestamps();
         });
     }
